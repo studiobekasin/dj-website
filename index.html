@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="bg" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DJ VASS - Професионално озвучаване, сценично осветление, водещ и DJ услуги">
+    <title>DJ VASS | Професионално озвучаване</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #050508;
+            --bg-secondary: #0a0a0f;
+            --bg-card: #0f0f18;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --accent: #00e5ff;
+            --accent-glow: rgba(0, 229, 255, 0.3);
+            --accent-secondary: #ff006e;
+            --gradient-1: linear-gradient(135deg, #00e5ff 0%, #0066ff 100%);
+            --gradient-2: linear-gradient(135deg, #ff006e 0%, #8b00ff 100%);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f5f5f7;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --text-primary: #1a1a2e;
+            --text-secondary: #5a5a6e;
+            --accent: #0088cc;
+            --accent-glow: rgba(0, 136, 204, 0.2);
+            --border-color: rgba(0, 0, 0, 0.08);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background var(--transition), color var(--transition);
+        }
+
+        /* Intro Animation */
+        .intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 1s ease, visibility 1s ease;
+        }
+
+        .intro-overlay.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .typewriter-container {
+            text-align: center;
+        }
+
+        .typewriter {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(4rem, 15vw, 12rem);
+            letter-spacing: 0.3em;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 1;
+            transition: opacity 0.8s ease;
+            text-shadow: 0 0 60px var(--accent-glow);
+        }
+
+        .typewriter.fade {
+            opacity: 0;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 4px;
+            height: 1em;
+            background: var(--accent);
+            margin-left: 0.1em;
+            animation: blink 0.7s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 3rem 4rem;
+            text-align: center;
+            max-width: 500px;
+            transform: scale(0.9);
+            transition: transform 0.5s ease;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 2rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .modal-btn {
+            padding: 1rem 3rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .modal-btn.yes {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+
+        .modal-btn.yes:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+
+        .modal-btn.no {
+            background: var(--gradient-1);
+            color: var(--bg-primary);
+        }
+
+        .modal-btn.no:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px var(--accent-glow);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: transparent;
+            transition: background var(--transition);
+        }
+
+        header.scrolled {
+            background: rgba(5, 5, 8, 0.9);
+            backdrop-filter: blur(20px);
+        }
+
+        [data-theme="light"] header.scrolled {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 0.2em;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            transition: color var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .control-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .control-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: all var(--transition);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .slideshow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, 
+                rgba(5, 5, 8, 0.7) 0%,
+                rgba(5, 5, 8, 0.4) 50%,
+                rgba(5, 5, 8, 0.9) 100%
+            );
+        }
+
+        [data-theme="light"] .slide::after {
+            background: linear-gradient(to bottom, 
+                rgba(245, 245, 247, 0.7) 0%,
+                rgba(245, 245, 247, 0.4) 50%,
+                rgba(245, 245, 247, 0.9) 100%
+            );
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.8);
+        }
+
+        [data-theme="light"] .slide img {
+            filter: brightness(0.9);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 0 5%;
+        }
+
+        .hero-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(4rem, 12vw, 10rem);
+            letter-spacing: 0.3em;
+            line-height: 1;
+            margin-bottom: 1rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 30px var(--accent-glow)); }
+            to { filter: drop-shadow(0 0 60px var(--accent-glow)); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            margin-bottom: 3rem;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: var(--gradient-1);
+            color: var(--bg-primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            border-radius: 50px;
+            transition: all var(--transition);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px var(--accent-glow);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .scroll-indicator::after {
+            content: '';
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, var(--accent), transparent);
+            animation: scrollLine 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollLine {
+            0%, 100% { transform: scaleY(0); transform-origin: top; }
+            50% { transform: scaleY(1); transform-origin: top; }
+            51% { transform-origin: bottom; }
+            100% { transform: scaleY(0); transform-origin: bottom; }
+        }
+
+        /* Sections */
+        section {
+            padding: 8rem 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-tag {
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            letter-spacing: 0.1em;
+        }
+
+        /* Services */
+        .services {
+            background: var(--bg-secondary);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient-1);
+            transform: scaleX(0);
+            transition: transform var(--transition);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 25px 80px rgba(0, 229, 255, 0.1);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-1);
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Pricing */
+        .pricing {
+            background: var(--bg-primary);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 3rem;
+            text-align: center;
+            transition: all var(--transition);
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--accent);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            background: var(--gradient-1);
+            border-radius: 24px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient-1);
+            color: var(--bg-primary);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .pricing-card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-card .price {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.5rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 1.5rem 0;
+        }
+
+        .pricing-card .price span {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            -webkit-text-fill-color: var(--text-secondary);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 0.75rem 0;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .pricing-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .pricing-btn:hover,
+        .pricing-card.featured .pricing-btn {
+            background: var(--gradient-1);
+            border-color: transparent;
+            color: var(--bg-primary);
+        }
+
+        /* Gallery */
+        .gallery {
+            background: var(--bg-secondary);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            aspect-ratio: 4/3;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gallery-item img,
+        .gallery-item iframe {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Contact */
+        .contact {
+            background: var(--bg-primary);
+        }
+
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all var(--transition);
+        }
+
+        .contact-link:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 229, 255, 0.1);
+        }
+
+        .contact-link svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            padding: 3rem 5%;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        footer p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: right var(--transition);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu .nav-links {
+            flex-direction: column;
+            text-align: center;
+            gap: 2rem;
+        }
+
+        .mobile-menu .nav-links a {
+            font-size: 1.5rem;
+        }
+
+        .mobile-menu .controls {
+            margin-top: 3rem;
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links,
+            .controls {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .mobile-menu .nav-links,
+            .mobile-menu .controls {
+                display: flex;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal {
+                margin: 1rem;
+                padding: 2rem;
+            }
+
+            .modal-buttons {
+                flex-direction: column;
+            }
+
+            section {
+                padding: 5rem 5%;
+            }
+        }
+
+        /* Page hidden until modal dismissed */
+        .main-content {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .main-content.revealed {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body>
+    <!-- Intro Animation -->
+    <div class="intro-overlay" id="introOverlay">
+        <div class="typewriter-container">
+            <span class="typewriter" id="typewriter"></span>
+            <span class="cursor" id="cursor"></span>
+        </div>
+    </div>
+
+    <!-- Tax Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <h2 id="modalTitle">Ти данъчен ли си?</h2>
+            <div class="modal-buttons">
+                <button class="modal-btn yes" onclick="handleTaxResponse(true)" id="btnYes">Да</button>
+                <button class="modal-btn no" onclick="handleTaxResponse(false)" id="btnNo">Не</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header id="header">
+        <a href="#" class="logo">DJ VASS</a>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#services" data-bg="Услуги" data-en="Services">Услуги</a></li>
+                <li><a href="#pricing" data-bg="Цени" data-en="Prices">Цени</a></li>
+                <li><a href="#gallery" data-bg="Галерия" data-en="Gallery">Галерия</a></li>
+                <li><a href="#contact" data-bg="Контакт" data-en="Contact">Контакт</a></li>
+            </ul>
+        </nav>
+        <div class="controls">
+            <button class="control-btn" id="langBtn" onclick="toggleLanguage()">EN</button>
+            <button class="control-btn" id="themeBtn" onclick="toggleTheme()">☀️</button>
+        </div>
+        <div class="hamburger" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="close-menu" onclick="toggleMobileMenu()">×</button>
+        <ul class="nav-links">
+            <li><a href="#services" onclick="toggleMobileMenu()" data-bg="Услуги" data-en="Services">Услуги</a></li>
+            <li><a href="#pricing" onclick="toggleMobileMenu()" data-bg="Цени" data-en="Prices">Цени</a></li>
+            <li><a href="#gallery" onclick="toggleMobileMenu()" data-bg="Галерия" data-en="Gallery">Галерия</a></li>
+            <li><a href="#contact" onclick="toggleMobileMenu()" data-bg="Контакт" data-en="Contact">Контакт</a></li>
+        </ul>
+        <div class="controls">
+            <button class="control-btn" onclick="toggleLanguage()">EN</button>
+            <button class="control-btn" onclick="toggleTheme()">☀️</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-bg">
+                <div class="slideshow" id="slideshow">
+                    <!-- DJ/Event themed images -->
+                    <div class="slide active">
+                        <img src="https://images.unsplash.com/photo-1571266028243-e4733b0f0bb0?w=1920&q=80" alt="DJ Performance" loading="eager">
+                    </div>
+                    <div class="slide">
+                        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1920&q=80" alt="Concert Lights" loading="lazy">
+                    </div>
+                    <div class="slide">
+                        <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=1920&q=80" alt="DJ Mixing" loading="lazy">
+                    </div>
+                    <div class="slide">
+                        <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=1920&q=80" alt="Party Crowd" loading="lazy">
+                    </div>
+                    <div class="slide">
+                        <img src="https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=1920&q=80" alt="Stage Lighting" loading="lazy">
+                    </div>
+                </div>
+            </div>
+            <div class="hero-content">
+                <h1 class="hero-title">DJ VASS</h1>
+                <p class="hero-subtitle" data-bg="Професионално озвучаване" data-en="Professional Sound">Професионално озвучаване</p>
+                <a href="#contact" class="cta-btn" data-bg="Свържете се" data-en="Get in Touch">Свържете се</a>
+            </div>
+            <div class="scroll-indicator">
+                <span data-bg="Scroll" data-en="Scroll">Scroll</span>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section class="services" id="services">
+            <div class="section-header">
+                <p class="section-tag" data-bg="Какво предлагаме" data-en="What we offer">Какво предлагаме</p>
+                <h2 class="section-title" data-bg="Нашите услуги" data-en="Our Services">Нашите услуги</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🎵</div>
+                    <h3 data-bg="Професионално озвучаване" data-en="Professional Sound">Професионално озвучаване</h3>
+                    <p data-bg="Висококачествено озвучаване за всякакъв вид събития с най-модерна апаратура." data-en="High-quality sound for any type of event with state-of-the-art equipment.">Висококачествено озвучаване за всякакъв вид събития с най-модерна апаратура.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💡</div>
+                    <h3 data-bg="Сценично осветление" data-en="Stage Lighting">Сценично осветление</h3>
+                    <p data-bg="Професионални светлинни ефекти и сценично осветление за незабравима атмосфера." data-en="Professional lighting effects and stage lighting for an unforgettable atmosphere.">Професионални светлинни ефекти и сценично осветление за незабравима атмосфера.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🎤</div>
+                    <h3 data-bg="Водещ" data-en="MC / Host">Водещ</h3>
+                    <p data-bg="Професионален водещ за вашето събитие - сватби, фирмени партита, рождени дни." data-en="Professional MC for your event - weddings, corporate parties, birthdays.">Професионален водещ за вашето събитие - сватби, фирмени партита, рождени дни.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🎧</div>
+                    <h3>DJ</h3>
+                    <p data-bg="Музикална селекция по ваш вкус - от класика до модерни хитове." data-en="Music selection to your taste - from classics to modern hits.">Музикална селекция по ваш вкус - от класика до модерни хитове.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🏗️</div>
+                    <h3 data-bg="Сценични конструкции" data-en="Stage Constructions">Сценични конструкции</h3>
+                    <p data-bg="Изграждане на сцени и конструкции за концерти и големи събития." data-en="Building stages and constructions for concerts and large events.">Изграждане на сцени и конструкции за концерти и големи събития.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🔊</div>
+                    <h3 data-bg="Аудио техника под наем" data-en="Audio Equipment Rental">Аудио техника под наем</h3>
+                    <p data-bg="Наем на професионална аудио техника - тонколони, миксери, микрофони." data-en="Rental of professional audio equipment - speakers, mixers, microphones.">Наем на професионална аудио техника - тонколони, миксери, микрофони.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing -->
+        <section class="pricing" id="pricing">
+            <div class="section-header">
+                <p class="section-tag" data-bg="Прозрачни цени" data-en="Transparent Pricing">Прозрачни цени</p>
+                <h2 class="section-title" data-bg="Ценоразпис" data-en="Pricing">Ценоразпис</h2>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3 data-bg="Основен" data-en="Basic">Основен</h3>
+                    <div class="price">500лв <span data-bg="/ събитие" data-en="/ event">/ събитие</span></div>
+                    <ul class="pricing-features">
+                        <li data-bg="DJ услуги до 6 часа" data-en="DJ services up to 6 hours">DJ услуги до 6 часа</li>
+                        <li data-bg="Базово озвучаване" data-en="Basic sound system">Базово озвучаване</li>
+                        <li data-bg="LED осветление" data-en="LED lighting">LED осветление</li>
+                        <li data-bg="Безжичен микрофон" data-en="Wireless microphone">Безжичен микрофон</li>
+                    </ul>
+                    <button class="pricing-btn" data-bg="Запитване" data-en="Inquire">Запитване</button>
+                </div>
+                <div class="pricing-card featured">
+                    <span class="pricing-badge" data-bg="Популярен" data-en="Popular">Популярен</span>
+                    <h3 data-bg="Професионален" data-en="Professional">Професионален</h3>
+                    <div class="price">900лв <span data-bg="/ събитие" data-en="/ event">/ събитие</span></div>
+                    <ul class="pricing-features">
+                        <li data-bg="DJ + Водещ до 8 часа" data-en="DJ + MC up to 8 hours">DJ + Водещ до 8 часа</li>
+                        <li data-bg="Професионално озвучаване" data-en="Professional sound system">Професионално озвучаване</li>
+                        <li data-bg="Пълно осветление" data-en="Full lighting setup">Пълно осветление</li>
+                        <li data-bg="Дим машина и ефекти" data-en="Fog machine and effects">Дим машина и ефекти</li>
+                        <li data-bg="2 безжични микрофона" data-en="2 wireless microphones">2 безжични микрофона</li>
+                    </ul>
+                    <button class="pricing-btn" data-bg="Запитване" data-en="Inquire">Запитване</button>
+                </div>
+                <div class="pricing-card">
+                    <h3 data-bg="Премиум" data-en="Premium">Премиум</h3>
+                    <div class="price">1500лв <span data-bg="/ събитие" data-en="/ event">/ събитие</span></div>
+                    <ul class="pricing-features">
+                        <li data-bg="Пълен пакет услуги" data-en="Full service package">Пълен пакет услуги</li>
+                        <li data-bg="Неограничено време" data-en="Unlimited time">Неограничено време</li>
+                        <li data-bg="Сценична конструкция" data-en="Stage construction">Сценична конструкция</li>
+                        <li data-bg="Професионален екип" data-en="Professional team">Професионален екип</li>
+                        <li data-bg="Индивидуален подход" data-en="Individual approach">Индивидуален подход</li>
+                    </ul>
+                    <button class="pricing-btn" data-bg="Запитване" data-en="Inquire">Запитване</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery -->
+        <section class="gallery" id="gallery">
+            <div class="section-header">
+                <p class="section-tag" data-bg="Нашата работа" data-en="Our Work">Нашата работа</p>
+                <h2 class="section-title" data-bg="Галерия" data-en="Gallery">Галерия</h2>
+            </div>
+            <div class="gallery-grid">
+                <!-- Replace these with your Flickr embed URLs when ready -->
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1544785349-c4a5301826fd?w=800&q=80" alt="DJ Performance" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?w=800&q=80" alt="Concert Crowd" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&q=80" alt="Stage Lights" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80" alt="Event Setup" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=800&q=80" alt="Wedding Event" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800&q=80" alt="Festival Night" loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section class="contact" id="contact">
+            <div class="contact-content">
+                <div class="section-header">
+                    <p class="section-tag" data-bg="Свържете се с нас" data-en="Get in Touch">Свържете се с нас</p>
+                    <h2 class="section-title" data-bg="Контакт" data-en="Contact">Контакт</h2>
+                </div>
+                <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto;" data-bg="Готови сме да направим вашето събитие незабравимо. Свържете се с нас за безплатна консултация." data-en="We're ready to make your event unforgettable. Contact us for a free consultation.">Готови сме да направим вашето събитие незабравимо. Свържете се с нас за безплатна консултация.</p>
+                <div class="contact-links">
+                    <a href="tel:+359888888888" class="contact-link">
+                        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                        <span>+359 888 888 888</span>
+                    </a>
+                    <a href="mailto:info@djvass.com" class="contact-link">
+                        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        <span>info@djvass.com</span>
+                    </a>
+                    <a href="https://facebook.com/djvass" target="_blank" class="contact-link">
+                        <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                        <span>Facebook</span>
+                    </a>
+                    <a href="https://instagram.com/djvass" target="_blank" class="contact-link">
+                        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+                        <span>Instagram</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>© 2025 DJ VASS. <span data-bg="Всички права запазени." data-en="All rights reserved.">Всички права запазени.</span></p>
+        </footer>
+    </div>
+
+    <script>
+        // Language state
+        let currentLang = 'bg';
+
+        // Typewriter effect
+        const text = 'DJ VASS';
+        let charIndex = 0;
+        const typewriterEl = document.getElementById('typewriter');
+        const cursorEl = document.getElementById('cursor');
+        const introOverlay = document.getElementById('introOverlay');
+        const modalOverlay = document.getElementById('modalOverlay');
+
+        function typeWriter() {
+            if (charIndex < text.length) {
+                typewriterEl.textContent += text.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWriter, 150);
+            } else {
+                // Hide cursor
+                cursorEl.style.display = 'none';
+                // Fade out text
+                setTimeout(() => {
+                    typewriterEl.classList.add('fade');
+                    // Hide intro and show modal
+                    setTimeout(() => {
+                        introOverlay.classList.add('fade-out');
+                        setTimeout(() => {
+                            modalOverlay.classList.add('active');
+                        }, 500);
+                    }, 800);
+                }, 1000);
+            }
+        }
+
+        // Start typewriter on load
+        window.addEventListener('load', () => {
+            setTimeout(typeWriter, 500);
+        });
+
+        // Handle tax response
+        function handleTaxResponse(isTaxpayer) {
+            if (isTaxpayer) {
+                window.location.href = 'danachen.html';
+            } else {
+                modalOverlay.classList.remove('active');
+                document.getElementById('mainContent').classList.add('revealed');
+                startSlideshow();
+            }
+        }
+
+        // Slideshow
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function startSlideshow() {
+            setInterval(() => {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }, 5000);
+        }
+
+        // Toggle language
+        function toggleLanguage() {
+            currentLang = currentLang === 'bg' ? 'en' : 'bg';
+            document.querySelectorAll('#langBtn').forEach(btn => {
+                btn.textContent = currentLang === 'bg' ? 'EN' : 'BG';
+            });
+
+            // Update all translatable elements
+            document.querySelectorAll('[data-bg][data-en]').forEach(el => {
+                el.textContent = el.getAttribute(`data-${currentLang}`);
+            });
+
+            // Update modal
+            document.getElementById('modalTitle').textContent = currentLang === 'bg' ? 'Ти данъчен ли си?' : 'Are you a taxpayer?';
+            document.getElementById('btnYes').textContent = currentLang === 'bg' ? 'Да' : 'Yes';
+            document.getElementById('btnNo').textContent = currentLang === 'bg' ? 'Не' : 'No';
+        }
+
+        // Toggle theme
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+
+            document.querySelectorAll('#themeBtn').forEach(btn => {
+                btn.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+            });
+        }
+
+        // Mobile menu
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+        }
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
